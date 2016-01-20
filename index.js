@@ -7,7 +7,6 @@ var stream = require('stream');
 
 var es = require('event-stream');
 var extfs = require('fs-extra');
-var jshint = require('jshint').JSHINT;
 var semver = require('semver');
 var vfs = require('vinyl-fs');
 var yauzl = require('yauzl');
@@ -92,14 +91,6 @@ util.mapFiles = function (files, fn) {
 };
 
 util.mkdir = denodeify(extfs.mkdirs);
-
-util.objectValues = function(o) {
-  var distinct = {};
-  for (var key in o) {
-    distinct[o[key]] = true;
-  }
-  return Object.keys(distinct);
-};
 
 util.openReadStream = function (filePath, fileOpts) {
   return new Promise(function (resolve, reject) {
@@ -243,11 +234,6 @@ util.unzipText = function (yauzFile, entry, withCrs) {
   return util.unzipStream(yauzFile, entry)
     .then(function (input) { return util.readStreamText(input, withCrs); })
     ;
-};
-
-util.verifyJavaScript = function (source, options) {
-  jshint(source, options);
-  return jshint.errors.slice();
 };
 
 util.vseps = /\//g;

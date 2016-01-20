@@ -6,7 +6,6 @@
   "dependencies": {
     "event-stream": "^3.3.1",
     "fs-extra": "0.23.1",
-    "jshint": "^2.8.0",
     "semver": "^5.1.0",
     "vinyl-fs": "^1.0.0",
     "yauzl": "^2.3.1",
