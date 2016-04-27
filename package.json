@@ -2,12 +2,12 @@
   "name": "oma-util",
   "description": "Common Node.js utilities, e.g. promise-based file operations.",
   "main": "index",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "dependencies": {
     "event-stream": "^3.3.1",
-    "fs-extra": "0.23.1",
+    "fs-extra": "0.28.0",
     "semver": "^5.1.0",
-    "vinyl-fs": "^1.0.0",
+    "vinyl-fs": "^2.4.3",
     "yauzl": "^2.3.1",
     "yazl": "^2.2.2"
   },
