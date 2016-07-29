@@ -59,7 +59,7 @@ util.endsWith = (s, postfix) =>
 
 util.fileExtensions = (categories, selection) => {
   const extensions = [];
-  for (let name of selection ? selection.split(',') : Object.keys(categories)) {
+  for (const name of selection ? selection.split(',') : Object.keys(categories)) {
     extensions.push(...(categories[name] || name).split(','));
   }
   return extensions;
@@ -77,7 +77,7 @@ util.filesPattern = (categories, files) => {
 };
 
 util.hasEnumerables = o => {
-  for (let _ in o) { return true; }
+  for (const _ in o) { return true; }
   return false;
 };
 
@@ -135,7 +135,7 @@ util.rmdir = denodeify(extfs.remove);
 util.selectEntries = (entries, prefix, postfix) => {
   postfix = postfix || '';
   const selected = {};
-  for (let key in entries) {
+  for (const key in entries) {
     if (util.startsWith(key, prefix) && util.endsWith(key, postfix)) {
       selected[key.substring(prefix.length, key.length - postfix.length)] = entries[key];
     }
@@ -153,7 +153,7 @@ util.streamInput = function() {
   const chunks = [...arguments];
   const input = new stream.Readable();
   input._read = () => {
-    for (let chunk of chunks) {
+    for (const chunk of chunks) {
       input.push(chunk);
     }
     input.push(null);
