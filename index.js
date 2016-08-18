@@ -54,9 +54,6 @@ util.eachFile = (files, fn) => new Promise((resolve, reject) => {
   })).once('error', reject).once('end', resolve);
 });
 
-util.endsWith = (s, postfix) =>
-  postfix.length <= s.length && s.lastIndexOf(postfix) === (s.length - postfix.length);
-
 util.fileExtensions = (categories, selection) => {
   const extensions = [];
   for (const name of selection ? selection.split(',') : Object.keys(categories)) {
@@ -117,9 +114,8 @@ util.readStreamBuffer = input => util.readStreamChunks(input)
 
 util.readStreamChunks = input => new Promise((resolve, reject) => {
   const chunks = [];
-  input.on('error', reject)
-    .on('data', chunk => { chunks.push(chunk); })
-    .on('end', () => { resolve(chunks); });
+  input.once('error', reject).once('end', () => { resolve(chunks); })
+    .on('data', chunk => { chunks.push(chunk); });
 });
 
 util.readStreamText = (input, withCrs) => {
@@ -136,7 +132,7 @@ util.selectEntries = (entries, prefix, postfix) => {
   postfix = postfix || '';
   const selected = {};
   for (const key in entries) {
-    if (util.startsWith(key, prefix) && util.endsWith(key, postfix)) {
+    if (key.startsWith(prefix) && key.endsWith(postfix)) {
       selected[key.substring(prefix.length, key.length - postfix.length)] = entries[key];
     }
   }
@@ -144,8 +140,6 @@ util.selectEntries = (entries, prefix, postfix) => {
 };
 
 util.seps = new RegExp('\\' + path.sep, 'g');
-
-util.startsWith = (s, prefix) => s.indexOf(prefix) === 0;
 
 util.stat = denodeify(fs.stat);
 
